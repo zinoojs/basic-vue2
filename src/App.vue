@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div>
+      <app-header/>
+      <div class="container"> 
+          <div>
+              <button @click=" compToRender = 'compHome' ">Home</button>
+              <button @click=" compToRender = 'compAbout' ">About</button>
+              <button @click=" compToRender = 'compContact' ">Contact</button>
+          </div>
+          <keep-alive>
+                <component :is="compToRender"></component>
+          </keep-alive>
+             
+      </div>
+      <app-footer/>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import compContact from './components/Contact';
+import compHome from './components/Home';
+import compAbout from './components/About';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    data() {
+        return {
+           compToRender: "compContact"
+        }
+    },
+    components: {
+        compContact,
+        compHome,
+        compAbout
+    },
+    methods: {
+        submit() {
+            console.log(this.formdatas);
+            console.log( JSON.stringify( this.formdatas ) );
+            
+        }
+    }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .container {
+    min-height: 84vh;
+    text-align: center;
+  }
 </style>
